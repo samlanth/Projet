@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -157,15 +157,22 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Carte.cpp" />
     <ClCompile Include="Fenetre.cpp" />
+    <ClCompile Include="Heros.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Brute.h" />
     <ClInclude Include="Carte.h" />
     <ClInclude Include="Constantes.h" />
     <ClInclude Include="Fenetre.h" />
+    <ClInclude Include="Heros.h" />
+    <ClInclude Include="Monstre.h" />
+    <ClInclude Include="Objet.h" />
+    <ClInclude Include="Personnage.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Voleur.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

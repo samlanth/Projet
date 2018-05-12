@@ -28,42 +28,49 @@ La classe CObjet
 //--------------------------------------------------------//
 // CObjet
 //--------------------------------------------------------//
-class CObjet : public sf::Sprite
+class CObjet : public CAnimation
 {
 private:
 	std::string nom;
 	int GainVie;
 	int GainFortune;
 	int GainDefense;
+
 public:
 	/*
 	Possède un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
-1.	Une référence à une texture;
-2.	La position de l’objet sur la carte (CPosition);
-3.	Le nom de l’objet
-4.	Le gain en points de vie;
-5.	Le gain en points de fortune;
-6.	Le gain en points de défense ;
+    1.	Une référence à une texture;
+    2.	La position de l’objet sur la carte (CPosition);
+    3.	Le nom de l’objet
+    4.	Le gain en points de vie;
+    5.	Le gain en points de fortune;
+    6.	Le gain en points de défense ;
 	*/
-	CObjet(sf::Texture& LaTexture, const CPosition& Pos, std::string nom,  int v, int f, int d);
+    CObjet(sf::Texture& LaTexture, const CPosition& Pos, const std::string& anom, int v, int f, int d) :
+        CAnimation(LaTexture, Pos, 1, 0), nom(anom), GainVie(v), GainFortune(f), GainDefense(d)
+    {
+    }
 
-/*
-La méthode Afficher qui prend une référence à un RenderWindow
-et qui affiche l’objet dans la fenêtre.
-*/
-	void Afficher(sf::RenderWindow& Fenetre);
+    /*
+    La méthode Afficher qui prend une référence à un RenderWindow
+    et qui affiche l’objet dans la fenêtre.
+    */
+    void Afficher(sf::RenderWindow& Fenetre)
+    {
+        CAnimation::Afficher(Fenetre);
+    }
 
-/*
-Les mutateurs et accesseurs jugés nécessaires;
-*/
-
-
-	/*
-Et finalement, l'opérateur << qui permet d'afficher les caractéristiques
-de l'objet à la console.
-Inspirez-vous grandement de ce que vous avez fait dans la classe CHeros.
-*/
-	
+    /*
+    Les mutateurs et accesseurs jugés nécessaires;
+    */
+    std::string getNom() const { return nom; }
+    int getGainVie() const { return GainVie; }
+    int getGainFortune() const { return GainFortune; }
+    int getGainDefense() const { return GainDefense; }
 };
 
-std::ostream& operator<<(std::ostream& os, const CObjet& h);
+std::ostream& operator<<(std::ostream& os, const CObjet& h)
+{
+    os << "Objet[Nom:" << h.getNom() << "GainV:" << h.getGainVie() << "GainF:" << h.getGainFortune() << "GainD:" << h.getGainDefense() << " Pos:" << h.getPosition() << "]";
+    return os;
+}

@@ -13,25 +13,40 @@ La classe CPersonnage
 */
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 #include "Position.h"
 #include "Carte.h"
+
 //--------------------------------------------------------//
 // CPersonnage
 //--------------------------------------------------------//
-class CPersonnage : public CPosition
+class CPersonnage : public CAnimation
 {
 private:
-	std::string Nom_;
+	std::string nom;
 
 public:
 	//1.	Une référence à une texture;
 	//2.	La position du personnage sur la carte(CPosition);
 	//3.	Le nom du personnage;
 
-	CPersonnage(sf::Texture& LaTexture, const CPosition& Pos, std::string nom);
+    CPersonnage(sf::Texture& LaTexture, const CPosition& Pos, const std::string& anom) :  
+        CAnimation(LaTexture, Pos), nom(anom)
+    {
+    }
 
 	//Déclare la fonction virtuelle pure  Deplacer qui prend
 	//une référence à un objet de la classe CCarte ainsi que
 	//la position du héros, et qui retourne true ou false;
-	virtual bool Deplacer(const CCarte& objet) = 0;
+	virtual bool Deplacer(const CCarte& objet, Direction d) = 0;
+
+    void setNom(const std::string& anom)
+    {
+        nom = anom;
+    }
+
+    std::string getNom() const
+    {
+        return nom;
+    }
 };

@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
 
 	// Tableau de monstres
 	CMonstre* Mechants[NbMonstres];
+
 	// Tableau d'objets 
 	CObjet* Objets[NbObjets];
 	
@@ -61,21 +62,21 @@ int main(int argc, char *argv[])
 
 		// Carte
 		Texture MondeText;
-		MondeText.loadFromFile("res\\lemonde.png");
+		MondeText.loadFromFile("Res\\lemonde.png");
 		Image MondeMasque;
-		MondeMasque.loadFromFile("res\\MasqueDuMonde.png");
+		MondeMasque.loadFromFile("Res\\MasqueDuMonde.png");
 		CCarte Monde(MondeText, MondeMasque);
 
 		// Heros
 		Texture HerosText;
-		HerosText.loadFromFile("res\\Heros.png");
+		HerosText.loadFromFile("Res\\Heros.png");
 		CHeros Heros(HerosText, CPosition(1000, 1000), "Heros", 3, 0);
 
 		// Monstres
 		Texture BruteText;
-		BruteText.loadFromFile("res\\brute.png");
+		BruteText.loadFromFile("Res\\brute.png");
 		Texture VoleurText;
-		VoleurText.loadFromFile("res\\voleur.png");
+		VoleurText.loadFromFile("Res\\voleur.png");
 
 		// Initialisation du tableau de Monstres
 		// Choisir entre une Brute et un Voleur au hasard pour chaque Monstre
@@ -83,11 +84,11 @@ int main(int argc, char *argv[])
 		
 		// Objets
 		Texture PainText;
-		PainText.loadFromFile("res\\pain.png");
+		PainText.loadFromFile("Res\\pain.png");
 		Texture BouclierText;
-		BouclierText.loadFromFile("res\\bouclier.png");
+		BouclierText.loadFromFile("Res\\bouclier.png");
 		Texture SouText;
-		SouText.loadFromFile("res\\sou.png");
+		SouText.loadFromFile("Res\\sou.png");
 
 		// Initialisation des sous (le nombre de sous est déterminé par la constante NbSous
 		// et les sous sont placés en premier dans le tableau d'objets)
@@ -102,7 +103,9 @@ int main(int argc, char *argv[])
 		do
 		{
 			// Déplacer le héros et déterminer si le joueur a demandé de quitter le jeu
-			bQuitter = Heros.Deplacer(Monde, Heros.getPosition());
+			//bQuitter = Heros.Deplacer(Monde, Heros.getPosition());
+            Direction d = Haut; // Get keyboard
+            bQuitter = Heros.Deplacer(Monde, d);
 
 			// Déplacer tous les monstres
 			
