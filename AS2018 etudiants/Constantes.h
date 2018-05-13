@@ -39,7 +39,7 @@ const int VitesseHeros = 6;
 const int NbToursMin = 5;
 const int NbToursMax = 20;
 
-// Dimensions de la fenêtre de jeu
+// Dimensions du monde
 const int Largeur = 1024;
 const int Hauteur = 768;
 

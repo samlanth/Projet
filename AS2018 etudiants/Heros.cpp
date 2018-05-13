@@ -2,11 +2,6 @@
 #include "Constantes.h"
 #include <algorithm>
 
-
-//    int vie;
-//    int defense;
-//    int fortune;
-
 /*
 A un constructeur paramétrique qui prend cinq (5) paramètres :
 Une référence à une texture;

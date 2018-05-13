@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
             }
             else if (hasEsc == true)
             {
-                //bQuitter = true;
+                bQuitter = true;
             }
 
 			// Déplacer tous les monstres
