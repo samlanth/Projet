@@ -40,6 +40,8 @@ public:
 	//la position du héros, et qui retourne true ou false;
 	virtual bool Deplacer(const CCarte& objet, Direction d) = 0;
 
+    virtual bool DeplacerVers(const CCarte& objet, Direction d, CPosition pos) = 0;
+
     void setNom(const std::string& anom)
     {
         nom = anom;

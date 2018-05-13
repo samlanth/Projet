@@ -55,7 +55,7 @@ public:
 	//          position sur la carte, faux dans le cas 
 	//          contraire
 	////////////////////////////////////////////////////////////
-	bool EstPositionValide(const CPosition& Position);
+	bool EstPositionValide(const CPosition& Position) const;
 
 
 private:

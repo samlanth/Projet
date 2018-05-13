@@ -51,10 +51,6 @@ public:
         sf::Sprite(LaTexture), nom(anom), GainVie(v), GainFortune(f), GainDefense(d)
     {
         setPosition(Pos);
-        //int FrameLargeur_ = LaTexture.getSize().x / 1;
-        //int FrameHauteur_ = LaTexture.getSize().y / 1;
-        //setOrigin(static_cast<float>(FrameLargeur_ / 2),
-        //    static_cast<float>(FrameHauteur_)); // Les pieds!
     }
 
     /*
@@ -63,7 +59,6 @@ public:
     */
     void Afficher(sf::RenderWindow& Fenetre)
     {
-        //sf::Sprite::Afficher(Fenetre);
         Fenetre.draw(*this);
     }
 
@@ -76,8 +71,4 @@ public:
     int getGainDefense() const { return GainDefense; }
 };
 
-//std::ostream& operator<<(std::ostream& os, const CObjet& h)
-//{
-//    os << "Objet[Nom:" << h.getNom() << "GainV:" << h.getGainVie() << "GainF:" << h.getGainFortune() << "GainD:" << h.getGainDefense() << " Pos:" << h.getPosition() << "]";
-//    return os;
-//}
+std::ostream& operator<<(std::ostream& os, const CObjet& h);

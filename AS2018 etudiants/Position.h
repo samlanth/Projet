@@ -29,6 +29,8 @@ const float DistanceMax = 200.0f;
 
 bool PositionsProches(const CPosition& Pos1, const CPosition& Pos2);
 
+float distance(const CPosition& Pos1, const CPosition& Pos2);
+
 ////////////////////////////////////////////////////////////
 // operator<<
 // Affiche la position dans un flux de sortie

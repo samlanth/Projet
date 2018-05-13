@@ -11,7 +11,7 @@ void CCarte::Afficher(RenderWindow& Fenetre)
 	Fenetre.draw(*this);
 }
 
-bool CCarte::EstPositionValide(const CPosition& Position) 
+bool CCarte::EstPositionValide(const CPosition& Position) const
 {
     //int x = Obstruction_.getSize().x;
     //int y = Obstruction_.getSize().y;

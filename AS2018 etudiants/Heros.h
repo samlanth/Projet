@@ -68,6 +68,8 @@ public:
 	*/
     bool Deplacer(const CCarte& objet, Direction d) override;
 
+    bool DeplacerVers(const CCarte& objet, Direction d, CPosition pos) { return true; };
+
 	/*
     Si le héros peut se trouver à cette position de la carte
 	(voir la classe CCarte), alors la nouvelle position est affectée à la
@@ -115,8 +117,4 @@ public:
 	
 };
 
-//std::ostream& operator<<(std::ostream& os, const CHeros& h)
-//{
-//    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() << "]";
-//    return os;
-//}
+std::ostream& operator<<(std::ostream& os, const CHeros& h);

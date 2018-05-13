@@ -103,7 +103,7 @@ bool CHeros::Prendre(const CObjet& obj)
             AugmenterDefense(obj.getGainDefense());
         }
 
-        //std::cout << (*this) << " ramasse objet " << obj << std::endl;
+        std::cout << (*this) << " ramasse objet " << obj << std::endl;
         return false;
     }
     return true;

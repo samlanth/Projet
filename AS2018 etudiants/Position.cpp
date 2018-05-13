@@ -10,7 +10,7 @@ bool PositionsProches(const CPosition& Pos1, const CPosition& Pos2)
 
 ostream& operator<<(ostream& os, const CPosition& Position)
 {
-	os << "(" << Position.x << "," << Position.y << ")";
+os << "(" << Position.x << "," << Position.y << ")";
    return os;
 }
 
@@ -21,6 +21,12 @@ CPosition setRandomPos(int L, int H)
     return CPosition(x, y);
 }
 
+float distance(const CPosition& Pos1, const CPosition& Pos2)
+{
+    float dx = Pos1.x - Pos2.x;
+    float dy = Pos1.y - Pos2.y;
+    return (dx*dx + dy*dy);
+}
 
 
 

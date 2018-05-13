@@ -19,33 +19,60 @@ La classe CVoleur
 #include "Personnage.h"
 #include "Heros.h"
 #include "Monstre.h"
+
 //--------------------------------------------------------//
 // CVoleur
 //--------------------------------------------------------//
+class CVoleur;
+std::ostream& operator<<(std::ostream& os, const CVoleur& h);
+
 class CVoleur : public CMonstre
 {
 private:
 
 public:
 	/*
-A un constructeur paramétrique qui prend les mêmes trois (3) paramètres
-et dans le même ordre que le constructeur paramétrique de la classe CMonstre;
-*/
-	CVoleur(sf::Texture& LaTexture, const CPosition& Pos, std::string nom);
+    A un constructeur paramétrique qui prend les mêmes trois (3) paramètres
+    et dans le même ordre que le constructeur paramétrique de la classe CMonstre;
+    */
+	CVoleur(sf::Texture& LaTexture, const CPosition& Pos, std::string nom):
+        CMonstre(LaTexture, Pos, nom)
+    {
+    }
 
 	/*
-Redéfinit la méthode Attaquer qui prend une référence à un héros en paramètre 
-et qui retourne true ou false :
-La méthode Attaquer vérifie dans un premier temps si l’ennemi passé en paramètre
-est proche (voir la classe CPosition) . Si c’est le cas, alors il y a une attaque.  
-Si le Héros possède de la Fortune, le Voleur lui en enlève un point.
-Sinon, si le Héros possède de la Défense, le Voleur lui en enlève un point.
-Sinon, le Voleur déclare qu’il n’y a rien d’intéressant à voler ici et l’attaque ne produira aucun effet.
-Le Voleur ne peut pas tuer le Héros, donc la méthode retourne toujours true.
-De plus, la méthode doit afficher à la console tous les détails de l’attaque
-ainsi que les caractéristiques finales du Héros
-
+    Redéfinit la méthode Attaquer qui prend une référence à un héros en paramètre 
+    et qui retourne true ou false :
+    La méthode Attaquer vérifie dans un premier temps si l’ennemi passé en paramètre
+    est proche (voir la classe CPosition) . Si c’est le cas, alors il y a une attaque.  
+    Si le Héros possède de la Fortune, le Voleur lui en enlève un point.
+    Sinon, si le Héros possède de la Défense, le Voleur lui en enlève un point.
+    Sinon, le Voleur déclare qu’il n’y a rien d’intéressant à voler ici et l’attaque ne produira aucun effet.
+    Le Voleur ne peut pas tuer le Héros, donc la méthode retourne toujours true.
+    De plus, la méthode doit afficher à la console tous les détails de l’attaque
+    ainsi que les caractéristiques finales du Héros
 	*/
+    virtual bool Attaquer(CHeros& hero)
+    {
+        CPosition pos = getPosition();
+        if (PositionsProches(pos, hero.getPosition()) == true)
+        {
+            if (hero.getFortune() > 0)
+            {
+                hero.ReduireFortune(1);
+                std::cout << (*this) << std::string(" attaque ") << hero << std::endl;
+            }
+            else if (hero.getDefense() > 0)
+            {
+                hero.ReduireDefense(1);
+                std::cout << (*this) << std::string(" attaque ") << hero << std::endl;
+            }
+            else
+            {
+            }
+        }
 
-	virtual bool Attaquer(const CHeros& objet);
+        return true;
+    }
 };
+

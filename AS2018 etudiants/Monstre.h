@@ -29,18 +29,104 @@ class CMonstre : public CPersonnage
 {
 private:
 	int NombreTours;
+    int NombreToursAFaire;
 
 public:
 
 	CMonstre(sf::Texture& LaTexture, const CPosition& Pos, std::string nom):
-        CPersonnage(LaTexture, Pos, nom)
+        CPersonnage(LaTexture, Pos, nom), NombreTours(0)
     {
+        NombreToursAFaire = NbToursMin + (rand() % (NbToursMax - NbToursMin));
     }
 
     bool Deplacer(const CCarte& carte, Direction d) override
     {
+        return false;
+    }
+
+    bool DeplacerVers(const CCarte& carte, Direction d, CPosition posHero) override
+    {
         CPosition pos = getPosition();
-        CPosition new_pos;
+        if (NombreTours < NombreToursAFaire)
+        {
+            CPosition new_pos = getnewPos(d);
+            if (carte.EstPositionValide(new_pos) == true)
+            {
+                NombreTours++;
+                CAnimation::setPosition(new_pos);
+                return false;
+
+            }
+        }
+
+        // Reset direction
+        CPosition new_pos[4] = { getnewPos(Bas), getnewPos(Haut), getnewPos(Droite), getnewPos(Gauche) };
+        bool ok[4];
+        Direction vd[4] = { Bas, Haut, Droite, Gauche };
+        int n = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            ok[i] = false;
+            if (carte.EstPositionValide(new_pos[i]) == true)
+            {
+                float dist_avant = distance(pos, posHero);
+                float dist_apres = distance(new_pos[i], posHero);
+                if (dist_apres < dist_avant)
+                {
+                    ok[i] = true;
+                    n++;
+                }
+            }
+        }
+
+        if (n == 0)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                ok[i] = false;
+                if (carte.EstPositionValide(new_pos[i]) == true)
+                {
+                    ok[i] = true;
+                    n++;
+                }
+            }
+        }
+
+        if (n > 0)
+        {
+            int r = rand() % n;
+            n = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (ok[i] == true)
+                {
+                    if (n == r)
+                    {
+                        NombreTours = 1;
+                        CAnimation::setPosition(new_pos[i]);
+                        CAnimation::SetDirection(vd[i]);
+                        NombreToursAFaire = NbToursMin + (rand() % (NbToursMax - NbToursMin));
+                        break;
+                    }
+                    else
+                    {
+                        n++;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+	//	Déclare la fonction virtuelle pure  Attaquer qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
+    virtual bool Attaquer(CHeros& objet) = 0;
+
+    CPosition getnewPos(Direction d)
+    {
+        CPosition pos = getPosition();
+        CPosition new_pos = pos;
+
         switch (d)
         {
         case Direction::Bas:
@@ -56,27 +142,6 @@ public:
             new_pos = CPosition(std::max(pos.x - VitesseMonstres, (float)0), pos.y);
             break;
         }
-
-        // check mur
-        try
-        {
-            CCarte& c = const_cast<CCarte&> (carte); // remove const
-            if (c.EstPositionValide(new_pos) == true)
-            {
-                CAnimation::setPosition(new_pos);
-                CAnimation::SetDirection(d);
-            }
-        }
-        catch (...)
-        {
-        }
-
-        return false;
-    }
-
-	//	Déclare la fonction virtuelle pure  Attaquer qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
-    virtual bool Attaquer(const CHeros& objet) //= 0
-    {
-        return false;
+        return new_pos;
     }
 };

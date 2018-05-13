@@ -20,6 +20,8 @@ Le programme principal (main)
 	En fin de programme, il faut libérer les monstres et les objets restants.
 
 */
+
+
 ////////////////////////////////////////////////////////////
 // main.cpp
 // 
@@ -43,6 +45,33 @@ Le programme principal (main)
 
 using namespace std;
 using namespace sf;
+
+
+std::ostream& operator<<(std::ostream& os, const CObjet& h)
+{
+    os << "Objet[Nom:" << h.getNom() << " GainV:" << h.getGainVie() << " GainF:" << h.getGainFortune() << " GainD:" << h.getGainDefense() << " Pos:" << h.getPosition() << "]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const CHeros& h)
+{
+    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() << "]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const CBrute& h)
+{
+    os << "Brute[Nom:" << h.getNom() << " Pos:" << h.getPosition() << "]";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const CVoleur& h)
+{
+    os << "Voleur[Nom:" << h.getNom() << " Pos:" << h.getPosition() << "]";
+    return os;
+}
+
+
 
 int main(int argc, char *argv[])
 {
@@ -110,8 +139,8 @@ int main(int argc, char *argv[])
             {
                 pos = setRandomPos(MondeX, MondeY);
             }
-            if (rand()%2) Mechants[i] = new CMonstre(BruteText, pos, "brute" + std::to_string(i));
-            else Mechants[i] = new CMonstre(VoleurText, pos, "voleur" + std::to_string(i));
+            if (rand()%2) Mechants[i] = new CBrute(BruteText, pos, "brute" + std::to_string(i));
+            else Mechants[i] = new CVoleur(VoleurText, pos, "voleur" + std::to_string(i));
         }
 
         for (int i = 0; i < NbSous; i++)
@@ -186,15 +215,36 @@ int main(int argc, char *argv[])
             {
                 if (Mechants[i] != nullptr)
                 {
-                    Mechants[i]->Deplacer(Monde, Mechants[i]->GetDirection());
+                    Mechants[i]->DeplacerVers(Monde, Mechants[i]->GetDirection(), Heros.getPosition() );
                 }
             }
 			
 			// Le héros essaie de prendre tous les objets
 			// S'il arrive à prendre un sou : afficher le nombre de sous restant dans le monde
+            for (int i = 0; i < NbObjets; i++)
+            {
+                if (Objets[i] != nullptr)
+                {
+                    if (Heros.Prendre(*Objets[i]) == false)
+                    {
+                        delete Objets[i];
+                        Objets[i] = nullptr;
+                    }
+                }
+            }
 			
 			// Tous les monstres essaient d'attaquer le héros
-			
+            for (int i = 0; i < NbMonstres; i++)
+            {
+                if (Mechants[i] != nullptr)
+                {
+                    if (Mechants[i]->Attaquer(Heros) == false)
+                    {
+                        //...
+                    }
+                }
+            }
+
 			// Affichage
 			// Fenêtre
 			View Vue = Fenetre.getView();
@@ -257,6 +307,23 @@ int main(int argc, char *argv[])
 	}
 
 	// Effacer les monstres et les objets
+    for (int i = 0; i < NbMonstres; i++)
+    {
+        if (Mechants[i] != nullptr)
+        {
+            delete Mechants[i];
+            Mechants[i] = nullptr;
+        }
+    }
 	
+    for (int i = 0; i < NbObjets; i++)
+    {
+        if (Objets[i] != nullptr)
+        {
+            delete Objets[i];
+            Objets[i] = nullptr;
+        }
+    }
+
 	return 0;
 }
