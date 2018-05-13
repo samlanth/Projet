@@ -18,7 +18,8 @@ bool CCarte::EstPositionValide(const CPosition& Position) const
    if (Position.x < 0 || Position.x >= Obstruction_.getSize().x ||
       Position.y < 0 || Position.y >= Obstruction_.getSize().y)
    {
-      throw string("CCarte::EstPositionValide:: position en dehors de la carte!!");
+     // throw string("CCarte::EstPositionValide:: position en dehors de la carte!!");
+       return false;
    }
    
    return Obstruction_.getPixel(static_cast<unsigned int>(Position.x), 

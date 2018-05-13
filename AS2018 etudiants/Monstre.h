@@ -92,6 +92,11 @@ public:
             }
         }
 
+        if (n == 0)
+        {
+            int debug = 1;
+        }
+
         if (n > 0)
         {
             int r = rand() % n;
@@ -130,13 +135,13 @@ public:
         switch (d)
         {
         case Direction::Bas:
-            new_pos = CPosition(pos.x, std::max(pos.y + VitesseMonstres, (float)Hauteur));
+            new_pos = CPosition(pos.x, std::min(pos.y + VitesseMonstres, (float)MondeY));
             break;
         case Direction::Haut:
             new_pos = CPosition(pos.x, std::max(pos.y - VitesseMonstres, (float)0));
             break;
         case Direction::Droite:
-            new_pos = CPosition(std::max(pos.x + VitesseMonstres, (float)Largeur), pos.y);
+            new_pos = CPosition(std::min(pos.x + VitesseMonstres, (float)MondeX), pos.y);
             break;
         case Direction::Gauche:
             new_pos = CPosition(std::max(pos.x - VitesseMonstres, (float)0), pos.y);
