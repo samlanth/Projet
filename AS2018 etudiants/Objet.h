@@ -28,7 +28,6 @@ La classe CObjet
 //--------------------------------------------------------//
 // CObjet
 //--------------------------------------------------------//
-//class CObjet : public CAnimation
 class CObjet : public sf::Sprite
 {
 private:

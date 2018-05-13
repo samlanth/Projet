@@ -155,11 +155,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Brute.cpp" />
     <ClCompile Include="Carte.cpp" />
     <ClCompile Include="Fenetre.cpp" />
     <ClCompile Include="Heros.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Monstre.cpp" />
+    <ClCompile Include="Objet.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Voleur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -173,9 +177,6 @@
     <ClInclude Include="Personnage.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Voleur.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Res\lemonde.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

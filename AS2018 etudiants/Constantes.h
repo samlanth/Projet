@@ -43,5 +43,6 @@ const int NbToursMax = 20;
 const int Largeur = 1024;
 const int Hauteur = 768;
 
+// Carte dimension
 const int MondeX = 2398;
 const int MondeY = 2298;

@@ -46,33 +46,6 @@ Le programme principal (main)
 using namespace std;
 using namespace sf;
 
-
-std::ostream& operator<<(std::ostream& os, const CObjet& h)
-{
-    os << "Objet[Nom:" << h.getNom() << " GainV:" << h.getGainVie() << " GainF:" << h.getGainFortune() << " GainD:" << h.getGainDefense() << " Pos:" << h.getPosition() << "]";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const CHeros& h)
-{
-    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() << "]";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const CBrute& h)
-{
-    os << "Brute[Nom:" << h.getNom() << " Pos:" << h.getPosition() << "]";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const CVoleur& h)
-{
-    os << "Voleur[Nom:" << h.getNom() << " Pos:" << h.getPosition() << "]";
-    return os;
-}
-
-
-
 int main(int argc, char *argv[])
 {
 	bool bQuitter = false; 
@@ -102,7 +75,7 @@ int main(int argc, char *argv[])
 		// Heros
 		Texture HerosText;
 		HerosText.loadFromFile("Res\\Heros.png");
-		CHeros Heros(HerosText, CPosition(1000, 1000), "Heros", 3, 0);
+		CHeros Heros(HerosText, CPosition(1000, 1000), "Heros", 10, 0); // 10 vies
 
 		// Monstres
 		Texture BruteText;
@@ -240,7 +213,11 @@ int main(int argc, char *argv[])
                 {
                     if (Mechants[i]->Attaquer(Heros) == false)
                     {
-                        //...
+                        if (Heros.getVie() == 0)
+                        {
+                            // Fin de partie
+                            bHeros = false;
+                        }
                     }
                 }
             }

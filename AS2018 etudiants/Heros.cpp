@@ -25,8 +25,12 @@ Vers la gauche : la position x est diminuée de VitesseHeros
 */
 bool CHeros::Deplacer(const CCarte& carte, Direction d)
 {
+    // Position courante
     CPosition pos = getPosition();
+
+    // Position apres direction
     CPosition new_pos;
+
     switch (d)
     {
     case Direction::Bas:
@@ -48,8 +52,7 @@ bool CHeros::Deplacer(const CCarte& carte, Direction d)
     // check mur
     try
     {
-        CCarte& c = const_cast<CCarte&> (carte); // remove const
-        if (c.EstPositionValide(new_pos) == true)
+        if (carte.EstPositionValide(new_pos) == true)
         {
             CAnimation::setPosition(new_pos);
             CAnimation::SetDirection(d);
@@ -85,7 +88,9 @@ n’existe plus), true dans le cas contraire.
 
 bool CHeros::Prendre(const CObjet& obj)
 {
+    // Position courante
     CPosition pos = getPosition();
+
     if (PositionsProches(pos, obj.getPosition()) == true)
     {
         if (obj.getGainVie() > 0)
@@ -153,4 +158,8 @@ int CHeros::AugmenterFortune(int val)
     return fortune;
 }
 
-
+std::ostream& operator<<(std::ostream& os, const CHeros& h)
+{
+    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() << "]";
+    return os;
+}
