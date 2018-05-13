@@ -38,13 +38,16 @@ Le programme principal (main)
 #include "Heros.h"
 #include "Brute.h"
 #include "Voleur.h"
+#include "Objet.h"
+#include <SFML/Window/Keyboard.hpp>
+
 using namespace std;
 using namespace sf;
 
 int main(int argc, char *argv[])
 {
-	bool bQuitter = true; // Vrai s'il faut continuer la partie
-	bool bHeros = true;	  // Vrai si le héros est vivant
+	bool bQuitter = false; 
+	bool bHeros = true;
 
 	// Tableau de monstres
 	CMonstre* Mechants[NbMonstres];
@@ -98,16 +101,94 @@ int main(int argc, char *argv[])
 		// Pour chacun d'eux, choisir au hasard entre un pain et un bouclier
 		// Leur choisir une position aléatoire VALIDE dans le monde.
 		
+        // Tableau de monstres
+        for (int i = 0; i < NbMonstres; i++)
+        {
+            CPosition pos;
+            pos = setRandomPos(MondeX, MondeY);
+            while (Monde.EstPositionValide(pos) == false)
+            {
+                pos = setRandomPos(MondeX, MondeY);
+            }
+            if (rand()%2) Mechants[i] = new CMonstre(BruteText, pos, "brute" + std::to_string(i));
+            else Mechants[i] = new CMonstre(VoleurText, pos, "voleur" + std::to_string(i));
+        }
+
+        for (int i = 0; i < NbSous; i++)
+        {
+            CPosition pos;
+            pos = setRandomPos(MondeX, MondeY);
+            while (Monde.EstPositionValide(pos) == false)
+            {
+                pos = setRandomPos(MondeX, MondeY);
+            }
+            Objets[i] = new CObjet(SouText, pos, "sous"+std::to_string(i), 0, 1, 0);
+        }
+
+        for (int i = NbSous; i < NbObjets; i++)
+        {
+            CPosition pos;
+            pos = setRandomPos(MondeX, MondeY);
+            while (Monde.EstPositionValide(pos) == false)
+            {
+                pos = setRandomPos(MondeX, MondeY);
+            }
+            if (rand() % 2) Objets[i] = new CObjet(PainText, pos, "pain" + std::to_string(i), 1, 0, 0);
+            else Objets[i] = new CObjet(BouclierText, pos, "bouclier" + std::to_string(i), 0, 0, 1);
+
+        }
 
 		// Boucle d'affichage et de jeu
-		do
-		{
-			// Déplacer le héros et déterminer si le joueur a demandé de quitter le jeu
-			//bQuitter = Heros.Deplacer(Monde, Heros.getPosition());
-            Direction d = Haut; // Get keyboard
-            bQuitter = Heros.Deplacer(Monde, d);
+        Direction d;
+        bool hasKey = false;
+        bool hasEsc = false;
+        do
+        {
+            // Déplacer le héros et déterminer si le joueur a demandé de quitter le jeu
+            hasKey = false;
+            hasEsc = false;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                d = Gauche;
+                hasKey = true;
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                d = Droite;
+                hasKey = true;
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                d = Haut;
+                hasKey = true;
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                d = Bas;
+                hasKey = true;
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                hasEsc = true;
+            }
+
+            if (hasKey == true)
+            {
+                Heros.Deplacer(Monde, d);
+            }
+            else if (hasEsc == true)
+            {
+                //bQuitter = true;
+            }
 
 			// Déplacer tous les monstres
+            for (int i = 0; i < NbMonstres; i++)
+            {
+                if (Mechants[i] != nullptr)
+                {
+                    Mechants[i]->Deplacer(Monde, Mechants[i]->GetDirection());
+                }
+            }
 			
 			// Le héros essaie de prendre tous les objets
 			// S'il arrive à prendre un sou : afficher le nombre de sous restant dans le monde
@@ -124,8 +205,22 @@ int main(int argc, char *argv[])
 			Monde.Afficher(Fenetre);
 
 			// Afficher tous les objets
+            for (int i = 0; i < NbObjets; i++)
+            {
+                if (Objets[i] != nullptr)
+                {
+                    Objets[i]->Afficher(Fenetre);
+                }
+            }
 			
 			// Afficher tous les monstres
+            for (int i = 0; i < NbMonstres; i++)
+            {
+                if (Mechants[i] != nullptr)
+                {
+                    Mechants[i]->Afficher(Fenetre);
+                }
+            }
 			
 			// Afficher le héros
 			if (bHeros)

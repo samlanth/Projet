@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
+#include <stdlib.h>     /* srand, rand */
 
 //--------------------------------------------------------//
 // Direction
@@ -40,3 +41,4 @@ bool PositionsProches(const CPosition& Pos1, const CPosition& Pos2);
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& os, const CPosition& Position);
 
+CPosition setRandomPos(int L, int H);

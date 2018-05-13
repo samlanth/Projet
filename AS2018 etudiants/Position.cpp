@@ -14,5 +14,13 @@ ostream& operator<<(ostream& os, const CPosition& Position)
    return os;
 }
 
+CPosition setRandomPos(int L, int H)
+{
+    float x = rand() % L;
+    float y = rand() % H;
+    return CPosition(x, y);
+}
+
+
 
 

@@ -13,6 +13,8 @@ void CCarte::Afficher(RenderWindow& Fenetre)
 
 bool CCarte::EstPositionValide(const CPosition& Position) 
 {
+    //int x = Obstruction_.getSize().x;
+    //int y = Obstruction_.getSize().y;
    if (Position.x < 0 || Position.x >= Obstruction_.getSize().x ||
       Position.y < 0 || Position.y >= Obstruction_.getSize().y)
    {

@@ -35,17 +35,19 @@ bool CHeros::Deplacer(const CCarte& carte, Direction d)
     switch (d)
     {
     case Direction::Bas:
-        new_pos = CPosition(pos.x, std::max(pos.y + VitesseHeros, (float)Hauteur));
+        new_pos = CPosition(pos.x, std::min(pos.y + VitesseHeros, (float)MondeY));
         break;
     case Direction::Haut:
         new_pos = CPosition(pos.x, std::max(pos.y - VitesseHeros, (float)0));
         break;
     case Direction::Droite:
-        new_pos = CPosition(std::max(pos.x + VitesseHeros, (float)Largeur), pos.y);
+        new_pos = CPosition(std::min(pos.x + VitesseHeros, (float)MondeX), pos.y);
         break;
     case Direction::Gauche:
         new_pos = CPosition(std::max(pos.x - VitesseHeros, (float)0), pos.y);
         break;
+    default:
+        new_pos = pos;
     }
 
     // check mur
@@ -62,7 +64,7 @@ bool CHeros::Deplacer(const CCarte& carte, Direction d)
     {
     }
 
-    return false;
+    return true;
 }
 
 /*
@@ -106,7 +108,7 @@ bool CHeros::Prendre(const CObjet& obj)
             AugmenterDefense(obj.getGainDefense());
         }
 
-        std::cout << *this << " ramasse objet " << obj << std::endl;
+        //std::cout << (*this) << " ramasse objet " << obj << std::endl;
         return false;
     }
     return true;
@@ -156,8 +158,4 @@ int CHeros::AugmenterFortune(int val)
     return fortune;
 }
 
-std::ostream& operator<<(std::ostream& os, const CHeros& h)
-{
-    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() <<"]";
-    return os;
-}
+

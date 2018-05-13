@@ -32,10 +32,51 @@ private:
 
 public:
 
-	CMonstre(sf::Texture& LaTexture, const CPosition& Pos, std::string nom);
+	CMonstre(sf::Texture& LaTexture, const CPosition& Pos, std::string nom):
+        CPersonnage(LaTexture, Pos, nom)
+    {
+    }
 
-	virtual bool Deplacer(const CCarte& objet);
+    bool Deplacer(const CCarte& carte, Direction d) override
+    {
+        CPosition pos = getPosition();
+        CPosition new_pos;
+        switch (d)
+        {
+        case Direction::Bas:
+            new_pos = CPosition(pos.x, std::max(pos.y + VitesseMonstres, (float)Hauteur));
+            break;
+        case Direction::Haut:
+            new_pos = CPosition(pos.x, std::max(pos.y - VitesseMonstres, (float)0));
+            break;
+        case Direction::Droite:
+            new_pos = CPosition(std::max(pos.x + VitesseMonstres, (float)Largeur), pos.y);
+            break;
+        case Direction::Gauche:
+            new_pos = CPosition(std::max(pos.x - VitesseMonstres, (float)0), pos.y);
+            break;
+        }
+
+        // check mur
+        try
+        {
+            CCarte& c = const_cast<CCarte&> (carte); // remove const
+            if (c.EstPositionValide(new_pos) == true)
+            {
+                CAnimation::setPosition(new_pos);
+                CAnimation::SetDirection(d);
+            }
+        }
+        catch (...)
+        {
+        }
+
+        return false;
+    }
 
 	//	Déclare la fonction virtuelle pure  Attaquer qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
-	virtual bool Attaquer(const CHeros& objet) = 0;
+    virtual bool Attaquer(const CHeros& objet) //= 0
+    {
+        return false;
+    }
 };

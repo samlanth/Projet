@@ -42,3 +42,6 @@ const int NbToursMax = 20;
 // Dimensions de la fenêtre de jeu
 const int Largeur = 1024;
 const int Hauteur = 768;
+
+const int MondeX = 2398;
+const int MondeY = 2298;

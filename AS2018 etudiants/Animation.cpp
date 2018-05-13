@@ -21,7 +21,7 @@ void CAnimation::Afficher(RenderWindow& Fenetre)
 
 	// Calcul du rectangle source
 	IntRect Rect;
-	Rect.left = FrameLargeur_* (Compteur_/Vitesse_%NbFrames_);
+	Rect.left = FrameLargeur_* (Compteur_/Vitesse_ % NbFrames_);
 	Rect.top = FrameHauteur_*Direction_;
 	Rect.height = FrameHauteur_;
 	Rect.width = FrameLargeur_;

@@ -35,6 +35,7 @@ La déclaration de l’opérateur << doit être placée dans le fichier .h, mais
 #include <SFML/Graphics.hpp>
 #include "Personnage.h"
 #include "Objet.h"
+#include <iostream>
 
 //--------------------------------------------------------//
 // CHeros
@@ -111,7 +112,11 @@ public:
     int getVie() const { return vie; };
     int getDefense() const  { return defense; };
     int getFortune() const { return fortune; };
-		
+	
 };
 
-std::ostream& operator<<(std::ostream& os, const CHeros& h);
+//std::ostream& operator<<(std::ostream& os, const CHeros& h)
+//{
+//    os << "Hero[Nom:" << h.getNom() << " V:" << h.getVie() << " D:" << h.getDefense() << " F:" << h.getFortune() << " Pos:" << h.getPosition() << "]";
+//    return os;
+//}
