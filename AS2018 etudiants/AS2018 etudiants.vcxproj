@@ -23,7 +23,7 @@
     <ProjectGuid>{6D998793-D2C4-4DDB-A2F6-4CC9AED06786}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AS2017etudiants</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>AS2018 etudiants</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

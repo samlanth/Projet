@@ -1,21 +1,14 @@
-﻿/*
-La classe CMonstre
+﻿////////////////////////////////////////////////////////////
+// Monstre.h
+// 
+// Déclaration de la classe CMonstre qui représente
+// les monstres
+//
+// Samuel Lanthier
+// Création: 2018-05-15
+// - CMonstre - Dérive de CPersonnage
+////////////////////////////////////////////////////////////
 
-	Dérive de la classe CPersonnage;
-	Possède un seul attribut :
-	Le nombre de tours pendant lesquels le monstre continuera d’avancer dans la direction qu’il a choisie (voir détails plus bas).
-	A un constructeur paramétrique qui prend les mêmes trois (3) paramètres et dans le même ordre que le constructeur paramétrique de la classe CPersonnage;
-	Redéfinit la méthode Deplacer :
-	Un monstre se déplace en choisissant une direction valide (pour laquelle il est possible de faire un pas sans cogner un mur) qui le rapprocherait du héros dont la position a été reçue en paramètre.
-	Si deux directions valides le rapprocheraient du héros, il doit en choisir une au hasard (pour ne pas que le héros puisse deviner ce qu’il va faire).
-	Si aucune direction pouvant le rapprocher du héros n’est utilisable, il choisit une direction au hasard.
-	Il sélectionne aussi un nombre de tours pendant lesquels il conservera cette direction, entre NbToursMin et NbToursMax (constantes).
-	Pendant ce nombre de tours là, il continue simplement à avancer d’un pas (constante VitesseMonstres) dans la même direction à chaque tour, en réduisant le nombre de tours restants.
-	Lorsque ce nombre de tours arrive à zéro (0) ou lorsqu’il ne peut plus avancer dans la direction choisie parce qu’il frappe un mur, il doit choisir une nouvelle direction et un nouveau nombre de tours comme au point 1.
-	La méthode retourne True.
-	Déclare la fonction virtuelle pure  Attaquer qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
-
-*/
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Position.h"
@@ -28,20 +21,60 @@ La classe CMonstre
 //--------------------------------------------------------//
 class CMonstre : public CPersonnage
 {
+	
 private:
+	// // Le nombre de tours pendant lesquels le monstre continuera d’avancer dans la direction qu’il a choisie(voir détails plus bas).
 	int NombreTours;
     int NombreToursAFaire;
 
 public:
-
+	////////////////////////////////////////////////////////////
+	// CMonstre
+	//
+	// un constructeur paramétrique qui prend les mêmes trois (3) paramètres et dans le même ordre que le constructeur paramétrique de la classe CPersonnage;
+	// 
+	//
+	// Intrants : Une référence à une texture;
+	//			  La position du personnage sur la carte(CPosition);
+	//            Le nom du personnage;
+	//
+	////////////////////////////////////////////////////////////
     CMonstre(sf::Texture& LaTexture, const CPosition& Pos, std::string nom);
 
-    // Non utiliser
+
+	////////////////////////////////////////////////////////////
+	// CMonstre
+	//
+	// Redéfinit la méthode Déplacer :
+	// La méthode Deplacer calcule une nouvelle position en fonction de la touche appuyée par le joueur(voir la classe Keyboard de SFML) :
+	// 
+	//
+	// Intrants : une référence à une carte en paramètre
+	//			  La direction du personnage :
+	//			  Vers le bas : la position y est augmentée de VitesseHeros (Constantes.h)
+	//			  Vers le haut : la position y est diminuée de VitesseHeros
+	//            Vers la droite : la position x est augmentée de VitesseHeros
+	//	          Vers la gauche : la position x est diminuée de VitesseHeros
+	//
+	// Extrants : La méthode retourne true si le joueur a appuyé sur la touche Échappement, sinon elle retourne false.
+	//
+	////////////////////////////////////////////////////////////
     bool Deplacer(const CCarte& carte, Direction d) override { return false; }
 
     bool DeplacerVers(const CCarte& carte, Direction d, CPosition posHero) override;
 
-	// Déclare la fonction virtuelle pure  Attaquer qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
+	////////////////////////////////////////////////////////////
+	// CMonstre
+	//
+	// La fonction virtuelle pure  Attaquer
+	// qui prend une référence à un objet de la classe CHeros, et qui retourne true ou false;
+	// 
+	//
+	// Intrants : Qui prend une référence à un objet de 
+	//            la classe CHeros
+	//
+	//
+	////////////////////////////////////////////////////////////
     virtual bool Attaquer(CHeros& objet) = 0;
 
     // Calculer new position selon direction

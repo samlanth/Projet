@@ -1,4 +1,14 @@
-﻿/*
+﻿////////////////////////////////////////////////////////////
+// Brute.h
+// 
+// Déclaration de la classe CVoleur qui représente
+// un type de monstre - les voleurs
+//
+// Samuel Lanthier
+// Création: 2018-05-15
+// - CAnimation - Dérive de CMonstre
+////////////////////////////////////////////////////////////
+/*
 La classe CVoleur
 
 	Dérive de la classe CMonstre;

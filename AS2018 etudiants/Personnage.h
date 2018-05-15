@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////
+// Personnage.h
+// 
+// Déclaration de la classe CPersonnage qui représente
+// toute les personnages
+//
+// Samuel Lanthier
+// Création: 2018-05-15
+// - CAnimation - Dérive de CAnimation
+////////////////////////////////////////////////////////////
 /*
 La classe CPersonnage
 

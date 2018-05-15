@@ -1,12 +1,15 @@
-﻿/*
-La classe CObjet
+﻿////////////////////////////////////////////////////////////
+// Objet.h
+// 
+// Déclaration de la classe CObjet qui représente
+// le sprite
+//
+// Samuel Lanthier
+// Création: 2018-05-15
+// - CObjet - Dérive de Sprite
+////////////////////////////////////////////////////////////
 
-	Dérive de la classe Sprite de SFML;
-	Possède quatre (4) attributs :
-1.	Un Nom;
-2.	Un gain en points de vie: représente le nombre de points de vie qui seront ajoutés au personnage qui ramasse cet objet (exemple : une potion);
-3.	Un gain en points de fortune: représente le nombre de points de fortune qui seront ajoutés au personnage qui ramasse cet objet (exemple : un trésor);
-4.	Un gain en points de défense: représente le nombre de points de défense qui seront ajoutés au personnage qui ramasse cet objet (exemple : un bouclier);
+/*
 	 Possède un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
 1.	Une référence à une texture;
 2.	La position de l’objet sur la carte (CPosition);
@@ -28,24 +31,36 @@ La classe CObjet
 //--------------------------------------------------------//
 // CObjet
 //--------------------------------------------------------//
+// Dérive de la classe Sprite de SFML;
 class CObjet : public sf::Sprite
 {
+	// Possède quatre (4) attributs :
 private:
+	// Un nom
 	std::string nom;
+	// Un gain en points de vie : représente le nombre de points de vie qui seront ajoutés au personnage qui ramasse cet objet(exemple : une potion);
 	int GainVie;
+	// Un gain en points de fortune : représente le nombre de points de fortune qui seront ajoutés au personnage qui ramasse cet objet(exemple : un trésor);
 	int GainFortune;
+	// Un gain en points de défense : représente le nombre de points de défense qui seront ajoutés au personnage qui ramasse cet objet(exemple : un bouclier);
 	int GainDefense;
 
 public:
-	/*
-	Possède un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
-    1.	Une référence à une texture;
-    2.	La position de l’objet sur la carte (CPosition);
-    3.	Le nom de l’objet
-    4.	Le gain en points de vie;
-    5.	Le gain en points de fortune;
-    6.	Le gain en points de défense ;
-	*/
+
+	////////////////////////////////////////////////////////////
+	// CObjet
+	//
+	// un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
+	// 
+	//
+	// Intrants :  1.	Une référence à une texture;
+	//             2.	La position de l’objet sur la carte(CPosition);
+	//             3.	Le nom de l’objet
+	//             4.	Le gain en points de vie;
+	//             5.	Le gain en points de fortune;
+	//             6.	Le gain en points de défense;
+	//
+	////////////////////////////////////////////////////////////
     CObjet(sf::Texture& LaTexture, const CPosition& Pos, const std::string& anom, int v, int f, int d) :
         sf::Sprite(LaTexture), nom(anom), GainVie(v), GainFortune(f), GainDefense(d)
     {
