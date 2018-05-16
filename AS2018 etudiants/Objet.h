@@ -9,21 +9,6 @@
 // - CObjet - Dérive de Sprite
 ////////////////////////////////////////////////////////////
 
-/*
-	 Possède un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
-1.	Une référence à une texture;
-2.	La position de l’objet sur la carte (CPosition);
-3.	Le nom de l’objet
-4.	Le gain en points de vie;
-5.	Le gain en points de fortune;
-6.	Le gain en points de défense ;
-	Le constructeur doit initialiser la position de l'objet ainsi que le point d'origine qui doit être situé en bas au centre de la texture.
-	La méthode Afficher qui prend une référence à un RenderWindow et qui affiche l’objet dans la fenêtre.
-	Les mutateurs et accesseurs jugés nécessaires;
-	Et finalement, l'opérateur << qui permet d'afficher les caractéristiques de l'objet à la console.
-	Inspirez-vous grandement de ce que vous avez fait dans la classe CHeros.
-
-*/
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Position.h"
@@ -51,7 +36,7 @@ public:
 	// CObjet
 	//
 	// un constructeur paramétrique avec, dans l’ordre, les six (6) paramètres suivants :
-	// 
+	// Initialise la position de l'objet ainsi que le point d'origine qui doit être situé en bas au centre de la texture.
 	//
 	// Intrants :  1.	Une référence à une texture;
 	//             2.	La position de l’objet sur la carte(CPosition);
@@ -67,10 +52,17 @@ public:
         setPosition(Pos);
     }
 
-    /*
-    La méthode Afficher qui prend une référence à un RenderWindow
-    et qui affiche l’objet dans la fenêtre.
-    */
+	////////////////////////////////////////////////////////////
+	// CObjet
+	//
+	// La methode afficher.
+	// Affiche l'objet dans la fenetre
+	// une référence à un RenderWindow
+	// 
+	//
+	// Intrants : Une référence à un RenderWindow
+	//
+	////////////////////////////////////////////////////////////
     void Afficher(sf::RenderWindow& Fenetre)
     {
         Fenetre.draw(*this);
@@ -85,4 +77,5 @@ public:
     int getGainDefense() const { return GainDefense; }
 };
 
+// L'opérateur << qui permet d'afficher les caractéristiques de l'objet à la console.
 std::ostream& operator<<(std::ostream& os, const CObjet& h);
